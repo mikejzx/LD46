@@ -3209,7 +3209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9d992edfe4e9ba4eb17461555e4e83e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MuteMusic: 1
+  m_MuteMusic: 0
   m_BGM: {fileID: 8300000, guid: 4ead420baddb2434f9763a37ca2efe8e, type: 3}
   m_SFXCellDie: {fileID: 8300000, guid: 8b1e78b4263fce04e928a9c8f7010827, type: 3}
   m_SFXCellWrong: {fileID: 8300000, guid: 044cc8b861a8b4345bd96518935365da, type: 3}

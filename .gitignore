@@ -1,0 +1,17 @@
+Library/*
+Logs/*
+Temp/*
+Build/*
+.vs/*
+obj/*
+Assets/art/2d/bg_scroller/bg_scroller_seamless_blur.pdn*
+Assets/art/audio/bgm/bg_music*
+Assets/art/audio/sfx/sound_0/sound_0_data*
+Assets/art/audio/sfx/sound_0/sound_0.aup
+Assets/art/audio/sfx/sound_0/sound_0.aup.meta
+Assets/art/audio/sfx/sound_1/sound_1_data*
+Assets/art/audio/sfx/sound_1/sound_1.aup
+Assets/art/audio/sfx/sound_1/sound_1.aup.meta
+Assets/art/audio/sfx/sound_2/sound_2_data*
+Assets/art/audio/sfx/sound_2/sound_2.aup
+Assets/art/audio/sfx/sound_2/sound_2.aup.meta

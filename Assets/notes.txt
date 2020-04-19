@@ -1,0 +1,12 @@
+LUDUM DARE 46
+The theme is... _Keep it alive.___________
+
+IDEAS:
+* Space invaders-like game - protect enemies from getting to a single point.
+* Maze-like game with a rolling ball. Get to the end before "it" dies.
+* Keeping a concept "alive". Don't let something go out of fashion?
+* Heart - Love Alive
+
+CHOSEN IDEA:
+* You are a "blood system" - you need to drop each blood cell into the right "tubes" (veins/vessels),
+  or else the heart will fail, and become *non-alive*.

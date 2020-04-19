@@ -9,6 +9,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+	// Publics
+	public static bool GameStarted   { get; private set; } = false;
+	public static int  FirstReleased { get; set; } = -1;
+
 	// Privates.
 	private static bool m_LoseScreen  = false;
 	private static bool m_PauseScreen = false;
@@ -19,9 +23,34 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		// Fade from black.
-		m_LoseScreen = false;
+		m_LoseScreen  = false;
 		m_PauseScreen = false;
 		GUIManager.BlackFade(false);
+
+		// Deliberately don't reset these, so after each restart we
+		// don't see help message. Rebooting game will stop this though.
+		// GameStarted   = false;
+		// FirstReleased = -1;
+	}
+
+	/*
+	 * Start the game. Gets called when the user makes first input.
+	 */
+	public static void InputMade()
+	{
+		GameStarted = true;
+
+		// Hide the help text.
+		GUIManager.HelpTextHide();
+	}
+
+	/*
+	 * Called after releasing first cell.
+	 */
+	public static void FirstReleaseDone()
+	{
+		FirstReleased = 1;
+		GUIManager.HelpTextHide();
 	}
 
 	/*

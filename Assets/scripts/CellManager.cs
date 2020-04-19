@@ -31,7 +31,7 @@ public class CellManager : MonoBehaviour
 	public static float CellSpeed { get => Inst.m_CellSpeed; }
 
 	// Private members.
-	private float m_Timer = 4.2f;
+	private float m_Timer = 5.0f;
 	private float m_TimerTarget = 5.5f;
 	private float m_TimerTargetCurrent = 0.0f;
 	private float m_CellSpeed = 3.5f;
@@ -73,6 +73,12 @@ public class CellManager : MonoBehaviour
 	 */
 	private void Update()
 	{
+		// If not yet started.
+		if (!GameManager.GameStarted)
+		{
+			return;
+		}
+
 		// Increment timer.
 		m_Timer += Time.deltaTime;
 

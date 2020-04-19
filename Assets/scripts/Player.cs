@@ -29,11 +29,12 @@ public class Player : MonoBehaviour
 
 	// Privates
 	private RectTransform m_Trans;
-	private int  m_CurTube = 0;
-	private bool m_SwitchingTubes = false;
-	private float m_SwitchProgress = 0.0f;
+	private int    m_CurTube = 0;
+	private bool   m_SwitchingTubes = false;
+	private float  m_SwitchProgress = 0.0f;
 	private Cell[] m_StoredCells;
-	private int  m_StoredCellCount = 0;
+	private int    m_StoredCellCount = 0;
+	private float  m_ReleaseCooldownTimer = 0.0f;
 
 	// Powerups.
 	private bool _m_SpeedPowerupEnabled = false;
@@ -66,6 +67,7 @@ public class Player : MonoBehaviour
 	private const float MAX_BPM   = 165.0f;
 	private const float POWERUP_HEALTH_ADD = 27.0f;
 	private const float POWERUP_SPEED_LENGTH = 15.0f;
+	private const float RELEASE_COOLDOWN_TIME = 0.45f;
 	private static readonly float[] CELL_SCORES = {
 		3.0f, 2.0f, 1.0f, 0.5f
 	};
@@ -182,6 +184,13 @@ public class Player : MonoBehaviour
 		m_StoredCells[m_StoredCellCount++] = c;
 		c.SetState(CellState.Stored);
 
+		// If we are getting our first cell.
+		if (GameManager.FirstReleased == -1)
+		{
+			GameManager.FirstReleased = 0;
+			GUIManager.HelpTextShowRelease();
+		}
+
 		// Added, return true.
 		return true;
 	}
@@ -201,6 +210,12 @@ public class Player : MonoBehaviour
 	 */
 	private void HandleInput()
 	{
+		// Increment cooldown timer.
+		if (m_ReleaseCooldownTimer < RELEASE_COOLDOWN_TIME)
+		{
+			m_ReleaseCooldownTimer += Time.deltaTime;
+		}
+
 		// Allow a little bit of error if we are dropping.
 		if (m_SwitchingTubes && m_SwitchProgress < TUBE_SWITCH_MARGIN)
 		{
@@ -231,6 +246,12 @@ public class Player : MonoBehaviour
 			if (switchDir != 0)
 			{
 				StartCoroutine(DoSwitch(switchDir));
+
+				// If game not yet started, start it.
+				if (!GameManager.GameStarted)
+				{
+					GameManager.InputMade();
+				}
 			}
 		}
 
@@ -242,6 +263,12 @@ public class Player : MonoBehaviour
 			Input.GetKey(KeyCode.DownArrow) ||
 			Input.GetKey(KeyCode.Return))
 		{
+			// We need to be cooled down.
+			if (m_ReleaseCooldownTimer < RELEASE_COOLDOWN_TIME)
+			{
+				return;
+			}
+
 			// Can't drop if we don't have any cells.
 			if (m_StoredCellCount == 0)
 			{
@@ -272,6 +299,15 @@ public class Player : MonoBehaviour
 			{
 				m_StoredCells[i].SetStorageIndex(i);
 			}
+
+			// Hides the helper text for first release.
+			if (GameManager.FirstReleased == 0)
+			{
+				GameManager.FirstReleaseDone();
+			}
+
+			// Reset cooldown timer.
+			m_ReleaseCooldownTimer = 0.0f;
 		}
 	}
 

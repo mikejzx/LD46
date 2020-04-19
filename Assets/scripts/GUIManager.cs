@@ -28,6 +28,9 @@ public class GUIManager : MonoBehaviour
 	[Header("Misc")]
 	[SerializeField] private CanvasGroup m_Black = null;
 	[SerializeField] private CanvasGroup m_PauseScreenCg   = null;
+	[Header("Help text")]
+	[SerializeField] private CanvasGroup m_HelpCg   = null;
+	[SerializeField] private Text        m_HelpText = null;
 
 	// Privates
 	private Coroutine m_FadeCr;
@@ -39,6 +42,18 @@ public class GUIManager : MonoBehaviour
 	 * Called before Start.
 	 */
 	private void Awake() => Inst = this;
+
+	/*
+	 * Called on first frame.
+	 */
+	private void Start()
+	{
+		// Show the help text for movement.
+		if (!GameManager.GameStarted)
+		{
+			HelpTextShowMove();
+		}
+	}
 
 	/*
 	 * Set the BPM text.
@@ -181,5 +196,35 @@ public class GUIManager : MonoBehaviour
 	public static void PowerupTime(float t)
 	{
 		Inst.m_TextPowerup.text = $"Speed powerup: {t:n0}";
+	}
+
+	/*
+	 * Hide the help text.
+	 */
+	public static void HelpTextHide()
+	{
+		Inst.m_HelpCg.alpha = 0.0f;
+		Inst.m_HelpText.text = string.Empty;
+		Inst.m_HelpText.gameObject.SetActive(false);
+	}
+
+	/*
+	 * Displays the opening help text for movement.
+	 */
+	public static void HelpTextShowMove()
+	{
+		Inst.m_HelpCg.alpha = 1.0f;
+		Inst.m_HelpText.text = "Use the arrow keys to move around.";
+		Inst.m_HelpText.gameObject.SetActive(true);
+	}
+
+	/*
+	 * Displays the opening help text for releasing.
+	 */
+	public static void HelpTextShowRelease()
+	{
+		Inst.m_HelpCg.alpha = 1.0f;
+		Inst.m_HelpText.text = "Use the space bar to release a cell.\nYou can store up to 3 cells at a time.";
+		Inst.m_HelpText.gameObject.SetActive(true);
 	}
 }

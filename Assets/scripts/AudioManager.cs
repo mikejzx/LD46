@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
 	public static AudioManager Inst;
 
 	// Serialised members.
+	[SerializeField] private bool m_MuteMusic = false;
 	[SerializeField] private AudioClip m_BGM = null;
 	[SerializeField] private AudioClip m_SFXCellDie = null;
 	[SerializeField] private AudioClip m_SFXCellWrong = null;
@@ -34,7 +35,12 @@ public class AudioManager : MonoBehaviour
 		m_Audio = GetComponent<AudioSource>();
 		m_Audio.clip = m_BGM;
 		m_Audio.loop = true;
-		m_Audio.Play();
+
+		// Play music if not muted.
+		if (!m_MuteMusic)
+		{
+			m_Audio.Play();
+		}
 	}
 
 	/*
